@@ -1,69 +1,82 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+import { SproutLogo } from "@/components/SproutLogo";
+import { Button } from "@/components/ui/Button";
+import { Card } from "@/components/ui/Card";
+import { EmptyState } from "@/components/ui/EmptyState";
+import { SectionHeading } from "@/components/ui/SectionHeading";
 
 export default function Home() {
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
+    <main className="container section">
+      <header
+        style={{
+          display: "flex",
+          alignItems: "center",
+          gap: "0.75rem",
+          marginBottom: "2rem",
+        }}
+      >
+        <SproutLogo className="logo" />
+        <span
+          style={{
+            fontFamily: "var(--font-serif)",
+            fontSize: "1.5rem",
+            fontWeight: "600",
+            color: "var(--color-forest)",
+          }}
+        >
+          CivicSeed
+        </span>
+      </header>
+
+      <section>
+        <SectionHeading level={2}>
+          Every big change starts somewhere.
+        </SectionHeading>
+        <p
+          style={{
+            fontSize: "1.1rem",
+            color: "var(--color-text-muted)",
+            marginBottom: "1.5rem",
+          }}
+        >
+          Turn a school or community problem into an evidence-based policy
+          brief — with a real 0&ndash;100 Policy Readiness Check.
+        </p>
+        <Button variant="primary">Plant your first idea</Button>
+      </section>
+
+      <section style={{ marginTop: "3rem" }}>
+        <SectionHeading level={3}>Continue drafting</SectionHeading>
+        <EmptyState
+          title="No drafts yet"
+          description="Start your first project to pick up where you left off."
         />
-        <div className={styles.intro}>
-          <h1>
-            To get started, edit the{" "}
-            <code className={styles.code}>page.tsx</code> file.
-          </h1>
-          <p>
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learning
-            </a>{" "}
-            center.
+      </section>
+
+      <section style={{ marginTop: "3rem" }}>
+        <SectionHeading level={3}>My projects</SectionHeading>
+        <EmptyState
+          title="No projects yet"
+          description="Your saved projects will appear here."
+        />
+      </section>
+
+      <section style={{ marginTop: "3rem" }}>
+        <SectionHeading level={3}>How it works</SectionHeading>
+        <Card>
+          <p
+            style={{
+              fontSize: "0.95rem",
+              color: "var(--color-text-muted)",
+              margin: 0,
+            }}
+          >
+            This is a demonstration shell. The five steps &mdash; Define,
+            Stakeholders, Evidence, Solutions, Brief &mdash; will appear here
+            once you create a project.
           </p>
-        </div>
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className={styles.secondary}
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+        </Card>
+      </section>
+    </main>
   );
 }
