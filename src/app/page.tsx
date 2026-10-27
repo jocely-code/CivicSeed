@@ -1,81 +1,66 @@
-import { SproutLogo } from "@/components/SproutLogo";
-import { Button } from "@/components/ui/Button";
-import { Card } from "@/components/ui/Card";
-import { EmptyState } from "@/components/ui/EmptyState";
+"use client";
+
+import { useRouter } from "next/navigation";
+import { useProjects } from "@/hooks/useProjects";
+import { Hero } from "@/components/home/Hero";
+import { ContinueDraft } from "@/components/home/ContinueDraft";
+import { ProjectList } from "@/components/home/ProjectList";
+import { SampleProject } from "@/components/home/SampleProject";
+import { Stepper } from "@/components/Stepper";
 import { SectionHeading } from "@/components/ui/SectionHeading";
+import { EmptyState } from "@/components/ui/EmptyState";
 
 export default function Home() {
+  const router = useRouter();
+  const { projects, create, remove, ready, saveError } = useProjects();
+
+  if (!ready) {
+    return (
+      <main className="container section">
+        <EmptyState title="Loading…" description="Please wait." />
+      </main>
+    );
+  }
+
+  const mostRecent = projects[0];
+  const openProject = (id: string) => {
+    router.push(`/project/${id}/define`);
+  };
+
   return (
     <main className="container section">
-      <header
-        style={{
-          display: "flex",
-          alignItems: "center",
-          gap: "0.75rem",
-          marginBottom: "2rem",
-        }}
-      >
-        <SproutLogo className="logo" />
-        <span
-          style={{
-            fontFamily: "var(--font-serif)",
-            fontSize: "1.5rem",
-            fontWeight: "600",
-            color: "var(--color-forest)",
-          }}
-        >
-          CivicSeed
-        </span>
-      </header>
+      <Hero onCreate={() => create()} />
 
-      <section>
-        <SectionHeading level={2}>
-          Every big change starts somewhere.
-        </SectionHeading>
-        <p
-          style={{
-            fontSize: "1.1rem",
-            color: "var(--color-text-muted)",
-            marginBottom: "1.5rem",
-          }}
-        >
-          Turn a school or community problem into an evidence-based policy
-          brief — with a real 0&ndash;100 Policy Readiness Check.
-        </p>
-        <Button variant="primary">Plant your first idea</Button>
+      <section style={{ marginTop: "3rem" }}>
+        <ContinueDraft project={mostRecent} onOpen={openProject} />
       </section>
 
       <section style={{ marginTop: "3rem" }}>
-        <SectionHeading level={3}>Continue drafting</SectionHeading>
-        <EmptyState
-          title="No drafts yet"
-          description="Start your first project to pick up where you left off."
+        <ProjectList
+          projects={projects}
+          onOpen={openProject}
+          onDelete={remove}
         />
       </section>
 
-      <section style={{ marginTop: "3rem" }}>
-        <SectionHeading level={3}>My projects</SectionHeading>
-        <EmptyState
-          title="No projects yet"
-          description="Your saved projects will appear here."
-        />
-      </section>
+      {saveError && (
+        <div className="save-warning">
+          Changes may not be saved in this browser (storage may be full or
+          blocked). The app keeps working in memory.
+        </div>
+      )}
 
       <section style={{ marginTop: "3rem" }}>
         <SectionHeading level={3}>How it works</SectionHeading>
-        <Card>
-          <p
-            style={{
-              fontSize: "0.95rem",
-              color: "var(--color-text-muted)",
-              margin: 0,
-            }}
-          >
-            This is a demonstration shell. The five steps &mdash; Define,
-            Stakeholders, Evidence, Solutions, Brief &mdash; will appear here
-            once you create a project.
-          </p>
-        </Card>
+        <Stepper />
+        <p style={{ fontSize: "0.9rem", color: "var(--color-text-muted)", marginTop: "0.75rem" }}>
+          Five steps from problem to policy brief. Each step saves
+          automatically as you work.
+        </p>
+      </section>
+
+      <section style={{ marginTop: "3rem" }}>
+        <SampleProject />
       </section>
     </main>
   );

@@ -148,6 +148,122 @@ a:focus-visible {
 }
 
 /* ==========================================================================
+   Stepper — five-step progress indicator
+   ========================================================================== */
+
+.stepper {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.stepper__list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.stepper__step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-xs);
+  min-width: 96px;
+  color: var(--color-text-muted);
+  font-size: 0.8rem;
+}
+
+.stepper__number {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 2px solid var(--color-border);
+  background: var(--color-paper);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+}
+
+.stepper__label {
+  font-weight: 500;
+  color: var(--color-ink);
+}
+
+.stepper__desc {
+  font-size: 0.7rem;
+  color: var(--color-text-muted);
+  text-align: center;
+}
+
+.stepper__step--current .stepper__number {
+  background: var(--color-forest);
+  border-color: var(--color-forest);
+  color: var(--color-paper);
+}
+
+.stepper__step--current .stepper__label,
+.stepper__step--current .stepper__desc {
+  color: var(--color-forest);
+}
+
+.stepper__step--done .stepper__number {
+  background: var(--color-sage);
+  border-color: var(--color-sage);
+  color: var(--color-forest);
+}
+
+/* ==========================================================================
+   Project card
+   ========================================================================== */
+
+.project-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.project-card__title {
+  font-family: var(--font-serif);
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 0;
+  color: var(--color-ink);
+}
+
+.project-card__meta {
+  display: flex;
+  gap: var(--space-md);
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+}
+
+.project-card__actions {
+  display: flex;
+  gap: var(--space-sm);
+  margin-top: var(--space-xs);
+}
+
+/* ==========================================================================
+   Save warning banner
+   ========================================================================== */
+
+.save-warning {
+  background: #FDF2F2;
+  border: 1px solid #C0392B;
+  color: #C0392B;
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--radius-md);
+  font-size: 0.85rem;
+  margin-bottom: var(--space-md);
+}
+
+/* ==========================================================================
    UI primitives — base styling (further refined in component files)
    ========================================================================== */
 
