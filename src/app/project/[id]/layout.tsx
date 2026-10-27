@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import { Stepper } from "@/components/Stepper";
 import { ReadinessPanel } from "@/components/ReadinessPanel";
 import { useProject } from "@/hooks/useProject";
@@ -19,18 +19,22 @@ export default function ProjectLayout({
   // Extract project id from URL: /project/<id>/<step>
   const segments = pathname.split("/");
   const id = segments[2];
+  const urlStep = segments[3];
 
   const { project, ready, saveError } = useProject(id);
 
-  // Redirect to the project's saved step if not already on it.
+  // Valid step names. Do NOT redirect on step mismatch — project.step is for
+  // "where to send user on reopen", not to block intentional navigation.
+  const VALID_STEPS = useMemo(
+    () => ["define", "stakeholders", "evidence", "solutions", "brief"],
+    []
+  );
   useEffect(() => {
     if (!ready || !project) return;
-    const current = segments[3];
-    const expected = project.step;
-    if (current !== expected) {
+    if (urlStep && !VALID_STEPS.includes(urlStep)) {
       router.replace(`/project/${id}/${project.step}`);
     }
-  }, [ready, project, router, id, segments]);
+  }, [ready, project, router, id, urlStep, VALID_STEPS]);
 
   if (!ready || !project) {
     return null;
