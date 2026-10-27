@@ -7,6 +7,7 @@ import type { Project } from "@/lib/types";
 import { Button } from "@/components/ui/Button";
 import { TextArea } from "@/components/ui/TextArea";
 import { SectionHeading } from "@/components/ui/SectionHeading";
+import { useRouter } from "next/navigation";
 
 interface BriefDocumentProps {
   projectId: string;
@@ -19,6 +20,7 @@ export function BriefDocument({
   onCopy,
   onPrint,
 }: BriefDocumentProps) {
+  const router = useRouter();
   const { project, update, ready } = useProject(projectId);
 
   // All hooks run before any early return (React rules of hooks).
@@ -107,6 +109,14 @@ export function BriefDocument({
           </p>
         </div>
         <div style={{ display: "flex", gap: "0.5rem" }}>
+          <Button
+            variant="ghost"
+            onClick={() => {
+              router.push(`/project/${projectId}/solutions`);
+            }}
+          >
+            ← Back to Solutions
+          </Button>
           <Button variant="ghost" onClick={onCopy}>
             Copy Brief
           </Button>
