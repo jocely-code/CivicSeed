@@ -1,6 +1,5 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import { useProjects } from "@/hooks/useProjects";
 import { Hero } from "@/components/home/Hero";
 import { ContinueDraft } from "@/components/home/ContinueDraft";
@@ -11,7 +10,6 @@ import { SectionHeading } from "@/components/ui/SectionHeading";
 import { EmptyState } from "@/components/ui/EmptyState";
 
 export default function Home() {
-  const router = useRouter();
   const { projects, create, remove, ready, saveError } = useProjects();
 
   if (!ready) {
@@ -24,7 +22,7 @@ export default function Home() {
 
   const mostRecent = projects[0];
   const openProject = (id: string) => {
-    router.push(`/project?id=${id}&step=define`);
+    window.location.href = `/project?id=${id}&step=define`;
   };
 
   return (
@@ -32,7 +30,10 @@ export default function Home() {
       <Hero
         onCreate={() => {
           const p = create();
-          router.push(`/project?id=${p.id}&step=define`);
+          // Full page navigation (window.location.href) is more reliable than
+          // router.push for static export on GitHub Pages — it guarantees the
+          // query string is preserved and served from project.html.
+          window.location.href = `/project?id=${p.id}&step=define`;
         }}
       />
 
