@@ -8,9 +8,12 @@ import { SampleProject } from "@/components/home/SampleProject";
 import { Stepper } from "@/components/Stepper";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { EmptyState } from "@/components/ui/EmptyState";
+import { Card } from "@/components/ui/Card";
+import { Button } from "@/components/ui/Button";
 
 export default function Home() {
-  const { projects, create, remove, ready, saveError } = useProjects();
+  const { projects, create, loadDemo, remove, ready, saveError } =
+    useProjects();
 
   if (!ready) {
     return (
@@ -21,6 +24,7 @@ export default function Home() {
   }
 
   const mostRecent = projects[0];
+  const demoProject = projects.find((p) => p.isSample);
   const openProject = (id: string) => {
     window.location.href = `/project?id=${id}&step=define`;
   };
@@ -36,6 +40,33 @@ export default function Home() {
           window.location.href = `/project?id=${p.id}&step=define`;
         }}
       />
+
+      {demoProject && (
+        <section style={{ marginTop: "2rem" }}>
+          <Card>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+              <div>
+                <SectionHeading level={3}>Try the demonstration</SectionHeading>
+                <p style={{ fontSize: "0.9rem", color: "var(--color-text-muted)", margin: 0 }}>
+                  “{demoProject.title}” — a fully worked example showing how
+                  CivicSeed works. Safe to explore, edit, or delete.
+                </p>
+              </div>
+              <Button
+                variant="primary"
+                onClick={() => {
+                  const demo = loadDemo();
+                  if (demo) {
+                    window.location.href = `/project?id=${demo.id}&step=define`;
+                  }
+                }}
+              >
+                Open demonstration
+              </Button>
+            </div>
+          </Card>
+        </section>
+      )}
 
       <section style={{ marginTop: "3rem" }}>
         <ContinueDraft project={mostRecent} onOpen={openProject} />

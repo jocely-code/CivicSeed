@@ -149,29 +149,22 @@ export function deleteProject(id: string): boolean {
 }
 
 /**
- * Seed the sample project exactly once: only when the store has zero
- * projects and the seed flag hasn't been set. Deleting the sample does
- * not re-seed because the flag remains set.
+ * Ensure the sample project exists: only when no project with the
+ * sample id is already in the store. Deleting the sample will re-seed
+ * on the next home-page visit, so the demonstration is always available.
  */
 export function ensureSampleSeeded(makeSample: () => Project): void {
   if (!hasWindow()) return;
 
-  try {
-    const alreadySeeded = window.localStorage.getItem(SEED_FLAG_KEY);
-    if (alreadySeeded === "1") return;
-  } catch {
-    return;
-  }
-
   const store = loadStore();
-  if (store.projects.length > 0) return; // don't seed over real data
+  const hasSample = store.projects.some((p) => p.isSample);
+  if (hasSample) return; // sample already present
 
   const sample = makeSample();
-  store.projects = [sample];
+  store.projects = [...store.projects, sample];
 
   try {
     window.localStorage.setItem(STORAGE_KEY, JSON.stringify(store));
-    window.localStorage.setItem(SEED_FLAG_KEY, "1");
   } catch {
     /* quota/private-mode — seeding fails silently; app works in-memory */
   }

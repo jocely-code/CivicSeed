@@ -41,6 +41,13 @@ export function useProjects() {
     setReady(true);
   }, []);
 
+  const loadDemo = useCallback((): Project | undefined => {
+    ensureSampleSeeded(makeSampleProject);
+    const updated = listProjects();
+    setProjects(updated);
+    return updated.find((p) => p.isSample);
+  }, []);
+
   const create = useCallback((): Project => {
     const p = newProject();
     const ok = upsertProject(p);
@@ -56,5 +63,5 @@ export function useProjects() {
     return ok;
   }, []);
 
-  return { projects, create, remove, ready, saveError };
+  return { projects, create, loadDemo, remove, ready, saveError };
 }
