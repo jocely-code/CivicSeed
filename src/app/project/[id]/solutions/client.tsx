@@ -1,8 +1,7 @@
 "use client";
 
 import { useProject } from "@/hooks/useProject";
-import { Button } from "@/components/ui/Button";
-import { SectionHeading } from "@/components/ui/SectionHeading";
+import { SolutionsStep } from "@/components/solutions/SolutionsStep";
 import { useRouter } from "next/navigation";
 
 interface SolutionsClientProps {
@@ -16,14 +15,10 @@ export default function SolutionsClient({ id }: SolutionsClientProps) {
   if (!ready || !project) return null;
 
   return (
-    <div className="container section">
-      <SectionHeading level={2}>Step 4 — Compare solutions (coming soon)</SectionHeading>
-      <p style={{ fontSize: "0.95rem", color: "var(--color-text-muted)" }}>
-        Rule-based solution suggestions will appear here in Phase 6.
-      </p>
-      <Button variant="ghost" onClick={() => router.push(`/project/${id}/evidence`)}>
-        Back to Evidence
-      </Button>
-    </div>
+    <SolutionsStep
+      projectId={id}
+      onBack={() => router.push(`/project/${id}/evidence`)}
+      onNext={() => router.push(`/project/${id}/brief`)}
+    />
   );
 }

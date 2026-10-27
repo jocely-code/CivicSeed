@@ -460,3 +460,58 @@ a:focus-visible {
     padding: 0 var(--space-sm);
   }
 }
+
+/* ==========================================================================
+   Print styles — hides navigation and stepper, prints only the brief
+   ========================================================================== */
+
+@media print {
+  body {
+    background: var(--color-paper) !important;
+    color: var(--color-ink) !important;
+  }
+
+  .save-warning,
+  button,
+  a[href],
+  .stepper,
+  header > div:first-child,
+  .ReadinessPanel button,
+  header button {
+    display: none !important;
+  }
+
+  .container {
+    max-width: 100% !important;
+    padding: 0 !important;
+  }
+
+  section {
+    page-break-inside: avoid;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    color: var(--color-ink) !important;
+    page-break-after: avoid;
+  }
+
+  p {
+    color: var(--color-ink) !important;
+  }
+
+  .card {
+    border: 1px solid #999 !important;
+    background: var(--color-paper) !important;
+    box-shadow: none !important;
+  }
+
+  .input, .textarea, .select {
+    border: 1px solid #999 !important;
+    background: var(--color-paper) !important;
+    color: var(--color-ink) !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+}

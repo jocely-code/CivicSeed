@@ -115,6 +115,14 @@ export interface ReadinessReport {
   dimensions: ReadinessDimension[];
 }
 
+/** A section of the policy brief. */
+export interface BriefSection {
+  key: string;
+  title: string;
+  content: string;
+  editable: boolean;
+}
+
 /** The persisted localStorage store. */
 export interface Store {
   version: 1;
