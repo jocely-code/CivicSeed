@@ -11,7 +11,7 @@ interface EvidenceClientProps {
 
 export default function EvidenceClient({ id }: EvidenceClientProps) {
   const router = useRouter();
-  const { project, update, ready } = useProject(id);
+  const { project, update, updateStep, ready } = useProject(id);
 
   if (!ready || !project) return null;
 
@@ -35,7 +35,7 @@ export default function EvidenceClient({ id }: EvidenceClientProps) {
       >
         <button
           onClick={() => {
-            update({ step: "stakeholders" });
+            updateStep("stakeholders");
             router.push(`/project/${id}/stakeholders`);
           }}
           style={{
@@ -51,7 +51,7 @@ export default function EvidenceClient({ id }: EvidenceClientProps) {
         </button>
         <button
           onClick={() => {
-            update({ step: "solutions" });
+            updateStep("solutions");
             router.push(`/project/${id}/solutions`);
           }}
           style={{

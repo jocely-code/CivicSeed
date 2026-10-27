@@ -10,7 +10,7 @@ interface DefinePageClientProps {
 
 export default function DefinePageClient({ id }: DefinePageClientProps) {
   const router = useRouter();
-  const { project, update, ready } = useProject(id);
+  const { project, updateStep, ready } = useProject(id);
 
   if (!ready || !project) return null;
 
@@ -18,7 +18,7 @@ export default function DefinePageClient({ id }: DefinePageClientProps) {
     <DefineStep
       projectId={id}
       onNext={() => {
-        update({ step: "stakeholders" });
+        updateStep("stakeholders");
         router.push(`/project/${id}/stakeholders`);
       }}
     />

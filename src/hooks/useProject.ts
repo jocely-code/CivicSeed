@@ -73,6 +73,18 @@ export function useProject(id: string) {
     };
   }, [project, flushSave]);
 
+  const saveNow = useCallback(
+    (p: Project): boolean => {
+      try {
+        flushSave();
+        return upsertProject(p);
+      } catch {
+        return false;
+      }
+    },
+    [flushSave]
+  );
+
   const update = useCallback(
     (patch: Partial<Project>) => {
       const current = project;
@@ -94,7 +106,7 @@ export function useProject(id: string) {
       setProject(next);
       setSaveError(false);
 
-      // Debounced save.
+      // Debounced save for regular fields.
       flushSave();
       saveTimer.current = setTimeout(() => {
         const ok = upsertProject(next);
@@ -105,6 +117,25 @@ export function useProject(id: string) {
     [project, flushSave]
   );
 
+  // Synchronous step update — saves immediately without debounce.
+  // Returns true if save succeeded.
+  const updateStep = useCallback(
+    (step: Project["step"]): boolean => {
+      const current = project;
+      if (!current) return false;
+
+      const next: Project = {
+        ...current,
+        step,
+        updatedAt: new Date().toISOString(),
+      };
+
+      setProject(next);
+      return saveNow(next);
+    },
+    [project, saveNow]
+  );
+
   const remove = useCallback((): boolean => {
     flushSave();
     const ok = deleteProject(id);
@@ -112,5 +143,5 @@ export function useProject(id: string) {
     return ok;
   }, [id, flushSave]);
 
-  return { project, update, ready, saveError, remove };
+  return { project, update, updateStep, ready, saveError, remove };
 }

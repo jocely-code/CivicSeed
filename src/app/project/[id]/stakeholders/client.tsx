@@ -14,7 +14,7 @@ interface StakeholdersClientProps {
 
 export default function StakeholdersClient({ id }: StakeholdersClientProps) {
   const router = useRouter();
-  const { project, update, ready } = useProject(id);
+  const { project, update, updateStep, ready } = useProject(id);
 
   if (!ready || !project) return null;
 
@@ -40,7 +40,7 @@ export default function StakeholdersClient({ id }: StakeholdersClientProps) {
       >
         <button
           onClick={() => {
-            update({ step: "define" });
+            updateStep("define");
             router.push(`/project/${id}/define`);
           }}
           style={{
@@ -56,7 +56,7 @@ export default function StakeholdersClient({ id }: StakeholdersClientProps) {
         </button>
         <button
           onClick={() => {
-            update({ step: "evidence" });
+            updateStep("evidence");
             router.push(`/project/${id}/evidence`);
           }}
           style={{
