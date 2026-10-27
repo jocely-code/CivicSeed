@@ -6,7 +6,6 @@ import { TextField } from "@/components/ui/TextField";
 import { TextArea } from "@/components/ui/TextArea";
 import { Button } from "@/components/ui/Button";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { ReadinessPanel } from "@/components/ReadinessPanel";
 import type { Project } from "@/lib/types";
 
 const CATEGORIES: { value: string; label: string }[] = [
@@ -176,11 +175,9 @@ export function DefineStep({ projectId, onNext, onBack }: DefineStepProps) {
           </Button>
         )}
         <Button variant="primary" onClick={onNext}>
-          Continue to Stakeholders
+          Continue to Investigate
         </Button>
       </div>
-
-      <ReadinessPanel project={project} />
     </section>
   );
 }

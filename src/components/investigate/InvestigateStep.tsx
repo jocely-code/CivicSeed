@@ -3,7 +3,6 @@
 import { useProject } from "@/hooks/useProject";
 import { Button } from "@/components/ui/Button";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { ReadinessPanel } from "@/components/ReadinessPanel";
 import { EvidenceEditor } from "./EvidenceEditor";
 import { StakeholderEditor } from "./StakeholderEditor";
 import { DecisionMakerField } from "./DecisionMakerField";
@@ -61,8 +60,6 @@ export function InvestigateStep({ projectId, onNext, onBack }: InvestigateStepPr
           Continue to Solutions
         </Button>
       </div>
-
-      <ReadinessPanel project={project} />
     </section>
   );
 }
