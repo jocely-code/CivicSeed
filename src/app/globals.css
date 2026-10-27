@@ -264,6 +264,71 @@ a:focus-visible {
 }
 
 /* ==========================================================================
+   Note kind badges — visually distinguish observation / verified / assumption
+   ========================================================================== */
+
+.note-kind-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.1rem 0.5rem;
+  font-size: 0.7rem;
+  font-weight: 600;
+  border-radius: var(--radius-sm);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.note-kind-badge--observation {
+  background: #E3ECF0;
+  color: #2E5984;
+}
+
+.note-kind-badge--verified {
+  background: #DFF0E8;
+  color: #1E8449;
+}
+
+.note-kind-badge--assumption {
+  background: #FCF3CF;
+  color: #B7950B;
+}
+
+/* ==========================================================================
+   Evidence note card
+   ========================================================================== */
+
+.evidence-note {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-md);
+  margin-bottom: var(--space-sm);
+  background: var(--color-paper);
+}
+
+.evidence-note__text {
+  font-size: 0.95rem;
+  color: var(--color-ink);
+}
+
+.evidence-note__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+}
+
+.evidence-note__actions {
+  display: flex;
+  gap: var(--space-sm);
+  margin-top: var(--space-xs);
+}
+
+/* ==========================================================================
    UI primitives — base styling (further refined in component files)
    ========================================================================== */
 

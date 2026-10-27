@@ -14,21 +14,31 @@ export default function ProjectLayout({
   const router = useRouter();
   const pathname = usePathname();
 
-  // Extract project id from URL: /project/<id>/<step>
+  // Extract project id and step from URL: /project/<id>/<step>
   const segments = pathname.split("/");
   const id = segments[2];
+  const urlStep = segments[3];
 
   const { project, ready, saveError } = useProject(id);
+
+  // Determine which stepper steps are current.
+  // The investigate page covers both stakeholders (2) and evidence (3).
+  const currentSteps: string[] = [];
+  if (urlStep) {
+    if (urlStep === "investigate") {
+      currentSteps.push("stakeholders", "evidence");
+    } else {
+      currentSteps.push(urlStep);
+    }
+  }
 
   // Redirect to the project's saved step if not already on it.
   useEffect(() => {
     if (!ready || !project) return;
-    const current = segments[3]; // the step in the URL
-    const expected = project.step;
-    if (current !== expected) {
+    if (urlStep !== project.step) {
       router.replace(`/project/${id}/${project.step}`);
     }
-  }, [ready, project, router, id, segments]);
+  }, [ready, project, router, id, urlStep]);
 
   if (!ready || !project) {
     return null;
@@ -79,7 +89,7 @@ export default function ProjectLayout({
         )}
       </header>
 
-      <Stepper currentStep={project.step} />
+      <Stepper currentSteps={currentSteps as import("@/lib/types").StepKey[]} />
 
       <main>{children}</main>
 
