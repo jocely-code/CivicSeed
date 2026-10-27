@@ -29,7 +29,12 @@ export default function Home() {
 
   return (
     <main className="container section">
-      <Hero onCreate={() => create()} />
+      <Hero
+        onCreate={() => {
+          const p = create();
+          router.push(`/project/${p.id}/define`);
+        }}
+      />
 
       <section style={{ marginTop: "3rem" }}>
         <ContinueDraft project={mostRecent} onOpen={openProject} />

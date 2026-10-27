@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useMemo } from "react";
+import { useCallback, useEffect, useMemo } from "react";
 import { useProject } from "@/hooks/useProject";
 import { suggestSolutions } from "@/lib/solution-templates";
 import { Button } from "@/components/ui/Button";
@@ -24,6 +24,13 @@ export function SolutionsStep({ projectId, onNext, onBack }: SolutionsStepProps)
     if (project.solutions.length > 0) return project.solutions;
     return suggestSolutions(project.category, project.problem.description);
   }, [project]);
+
+  // Seed generated solutions into storage on first visit so they persist.
+  useEffect(() => {
+    if (!project || project.solutions.length > 0) return;
+    const generated = suggestSolutions(project.category, project.problem.description);
+    update({ solutions: generated });
+  }, [project, update]);
 
   const selectedId = solutions.find((s) => s.selected)?.id;
 
