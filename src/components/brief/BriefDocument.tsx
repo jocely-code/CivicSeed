@@ -7,7 +7,6 @@ import type { Project } from "@/lib/types";
 import { Button } from "@/components/ui/Button";
 import { TextArea } from "@/components/ui/TextArea";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { ReadinessPanel } from "@/components/ReadinessPanel";
 
 interface BriefDocumentProps {
   projectId: string;
@@ -139,8 +138,6 @@ export function BriefDocument({
           </div>
         ))}
       </div>
-
-      <ReadinessPanel project={project} />
     </section>
   );
 }

@@ -6,7 +6,6 @@ import { suggestSolutions } from "@/lib/solution-templates";
 import { Button } from "@/components/ui/Button";
 import { SolutionCard } from "./SolutionCard";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { ReadinessPanel } from "@/components/ReadinessPanel";
 import type { SolutionOption } from "@/lib/types";
 
 interface SolutionsStepProps {
@@ -131,8 +130,6 @@ export function SolutionsStep({ projectId, onNext, onBack }: SolutionsStepProps)
           Continue to Policy Brief
         </Button>
       </div>
-
-      <ReadinessPanel project={project} />
     </section>
   );
 }

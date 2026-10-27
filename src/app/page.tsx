@@ -24,7 +24,7 @@ export default function Home() {
 
   const mostRecent = projects[0];
   const openProject = (id: string) => {
-    router.push(`/project/${id}/define`);
+    router.push(`/project?id=${id}&step=define`);
   };
 
   return (
@@ -32,7 +32,7 @@ export default function Home() {
       <Hero
         onCreate={() => {
           const p = create();
-          router.push(`/project/${p.id}/define`);
+          router.push(`/project?id=${p.id}&step=define`);
         }}
       />
 
