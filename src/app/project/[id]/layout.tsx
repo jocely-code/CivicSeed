@@ -6,6 +6,10 @@ import { ReadinessPanel } from "@/components/ReadinessPanel";
 import { useProject } from "@/hooks/useProject";
 import { usePathname, useRouter } from "next/navigation";
 
+// Valid step names for the project stepper. The investigate URL covers
+// both stakeholders (2) and evidence (3) on one screen.
+const VALID_STEPS = ["define", "investigate", "solutions", "brief"];
+
 export default function ProjectLayout({
   children,
 }: {
@@ -32,10 +36,13 @@ export default function ProjectLayout({
     }
   }
 
-  // Redirect to the project's saved step if not already on it.
+  // Redirect to the project's saved step only if the URL step is not a
+  // valid step name (e.g. a bookmarked or mistyped URL). Otherwise let
+  // the user navigate forward freely — project.step is used for "where
+  // to send the user on reopen" via /project/[id], not to block progress.
   useEffect(() => {
     if (!ready || !project) return;
-    if (urlStep !== project.step) {
+    if (urlStep && !VALID_STEPS.includes(urlStep)) {
       router.replace(`/project/${id}/${project.step}`);
     }
   }, [ready, project, router, id, urlStep]);
