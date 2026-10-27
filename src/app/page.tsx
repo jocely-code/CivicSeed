@@ -1,5 +1,6 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { useProjects } from "@/hooks/useProjects";
 import { Hero } from "@/components/home/Hero";
 import { ContinueDraft } from "@/components/home/ContinueDraft";
@@ -12,6 +13,7 @@ import { Card } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 
 export default function Home() {
+  const router = useRouter();
   const { projects, create, loadDemo, remove, ready, saveError } =
     useProjects();
 
@@ -26,7 +28,7 @@ export default function Home() {
   const mostRecent = projects[0];
   const demoProject = projects.find((p) => p.isSample);
   const openProject = (id: string) => {
-    window.location.href = `/project?id=${id}&step=define`;
+    router.push(`/project?id=${id}&step=define`);
   };
 
   return (
@@ -34,10 +36,7 @@ export default function Home() {
       <Hero
         onCreate={() => {
           const p = create();
-          // Full page navigation (window.location.href) is more reliable than
-          // router.push for static export on GitHub Pages — it guarantees the
-          // query string is preserved and served from project.html.
-          window.location.href = `/project?id=${p.id}&step=define`;
+          router.push(`/project?id=${p.id}&step=define`);
         }}
       />
 
@@ -57,7 +56,7 @@ export default function Home() {
                 onClick={() => {
                   const demo = loadDemo();
                   if (demo) {
-                    window.location.href = `/project?id=${demo.id}&step=define`;
+                    router.push(`/project?id=${demo.id}&step=define`);
                   }
                 }}
               >
