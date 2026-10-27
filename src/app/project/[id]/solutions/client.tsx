@@ -10,15 +10,21 @@ interface SolutionsClientProps {
 
 export default function SolutionsClient({ id }: SolutionsClientProps) {
   const router = useRouter();
-  const { project, ready } = useProject(id);
+  const { project, update, ready } = useProject(id);
 
   if (!ready || !project) return null;
 
   return (
     <SolutionsStep
       projectId={id}
-      onBack={() => router.push(`/project/${id}/evidence`)}
-      onNext={() => router.push(`/project/${id}/brief`)}
+      onBack={() => {
+        update({ step: "evidence" });
+        router.push(`/project/${id}/evidence`);
+      }}
+      onNext={() => {
+        update({ step: "brief" });
+        router.push(`/project/${id}/brief`);
+      }}
     />
   );
 }

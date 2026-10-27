@@ -39,7 +39,10 @@ export default function StakeholdersClient({ id }: StakeholdersClientProps) {
         }}
       >
         <button
-          onClick={() => router.push(`/project/${id}/define`)}
+          onClick={() => {
+            update({ step: "define" });
+            router.push(`/project/${id}/define`);
+          }}
           style={{
             background: "none",
             border: "none",
@@ -52,7 +55,10 @@ export default function StakeholdersClient({ id }: StakeholdersClientProps) {
           ← Back to Define
         </button>
         <button
-          onClick={() => router.push(`/project/${id}/evidence`)}
+          onClick={() => {
+            update({ step: "evidence" });
+            router.push(`/project/${id}/evidence`);
+          }}
           style={{
             background: "var(--color-forest)",
             border: "none",

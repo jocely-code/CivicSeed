@@ -19,7 +19,7 @@ export default function EvidenceClient({ id }: EvidenceClientProps) {
     <div className="container section">
       <SectionHeading level={2}>Step 3 — Evidence</SectionHeading>
       <p style={{ fontSize: "0.95rem", color: "var(--color-text-muted)", marginBottom: "1.5rem" }}>
-        Record what you’ve seen, what you’ve confirmed, and what you’re still
+        Record what you&rsquo;ve seen, what you&rsquo;ve confirmed, and what you&rsquo;re still
         guessing about. Label each note so nothing is mistaken for fact.
       </p>
 
@@ -34,7 +34,10 @@ export default function EvidenceClient({ id }: EvidenceClientProps) {
         }}
       >
         <button
-          onClick={() => router.push(`/project/${id}/stakeholders`)}
+          onClick={() => {
+            update({ step: "stakeholders" });
+            router.push(`/project/${id}/stakeholders`);
+          }}
           style={{
             background: "none",
             border: "none",
@@ -47,7 +50,10 @@ export default function EvidenceClient({ id }: EvidenceClientProps) {
           ← Back to Stakeholders
         </button>
         <button
-          onClick={() => router.push(`/project/${id}/solutions`)}
+          onClick={() => {
+            update({ step: "solutions" });
+            router.push(`/project/${id}/solutions`);
+          }}
           style={{
             background: "var(--color-forest)",
             border: "none",
