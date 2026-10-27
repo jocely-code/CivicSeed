@@ -19,11 +19,13 @@ const STEP_LABELS: Record<StepKey, { label: string; desc: string }> = {
 };
 
 interface StepperProps {
-  currentSteps?: StepKey[];
+  currentStep?: StepKey;
   className?: string;
 }
 
-export function Stepper({ currentSteps = [], className }: StepperProps) {
+export function Stepper({ currentStep, className }: StepperProps) {
+  const currentIndex = currentStep ? STEP_ORDER.indexOf(currentStep) : -1;
+
   return (
     <nav
       className={["stepper", className].filter(Boolean).join(" ")}
@@ -31,9 +33,8 @@ export function Stepper({ currentSteps = [], className }: StepperProps) {
     >
       <ol className="stepper__list">
         {STEP_ORDER.map((key, index) => {
-          const highestIndex = Math.max(...currentSteps.map((s) => STEP_ORDER.indexOf(s)));
-          const isDone = highestIndex > index;
-          const isCurrent = currentSteps.includes(key);
+          const isDone = currentIndex > index;
+          const isCurrent = currentIndex === index;
           const { label, desc } = STEP_LABELS[key];
           return (
             <li

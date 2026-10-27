@@ -28,7 +28,7 @@ export default function Home() {
   const mostRecent = projects[0];
   const demoProject = projects.find((p) => p.isSample);
   const openProject = (id: string) => {
-    router.push(`/project?id=${id}&step=define`);
+    router.push(`/project/${id}/define`);
   };
 
   return (
@@ -36,7 +36,7 @@ export default function Home() {
       <Hero
         onCreate={() => {
           const p = create();
-          router.push(`/project?id=${p.id}&step=define`);
+          router.push(`/project/${p.id}/define`);
         }}
       />
 
@@ -56,7 +56,7 @@ export default function Home() {
                 onClick={() => {
                   const demo = loadDemo();
                   if (demo) {
-                    router.push(`/project?id=${demo.id}&step=define`);
+                    router.push(`/project/${demo.id}/define`);
                   }
                 }}
               >
