@@ -1,14 +1,14 @@
-import InvestigateClient from "./client";
+import StakeholdersClient from "./client";
 
 export function generateStaticParams() {
   return [{ id: "sample-lunch-wait-times" }];
 }
 
-export default async function InvestigatePage({
+export default async function StakeholdersPage({
   params,
 }: {
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  return <InvestigateClient id={id} />;
+  return <StakeholdersClient id={id} />;
 }

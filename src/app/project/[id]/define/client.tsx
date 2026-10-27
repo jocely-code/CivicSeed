@@ -18,7 +18,7 @@ export default function DefinePageClient({ id }: DefinePageClientProps) {
     <DefineStep
       projectId={id}
       onNext={() => {
-        router.push(`/project/${id}/investigate`);
+        router.push(`/project/${id}/stakeholders`);
       }}
     />
   );

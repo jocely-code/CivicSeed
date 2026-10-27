@@ -21,8 +21,8 @@ export default function SolutionsClient({ id }: SolutionsClientProps) {
       <p style={{ fontSize: "0.95rem", color: "var(--color-text-muted)" }}>
         Rule-based solution suggestions will appear here in Phase 6.
       </p>
-      <Button variant="ghost" onClick={() => router.push(`/project/${id}/investigate`)}>
-        Back to Investigate
+      <Button variant="ghost" onClick={() => router.push(`/project/${id}/evidence`)}>
+        Back to Evidence
       </Button>
     </div>
   );

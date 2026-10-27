@@ -175,7 +175,7 @@ export function DefineStep({ projectId, onNext, onBack }: DefineStepProps) {
           </Button>
         )}
         <Button variant="primary" onClick={onNext}>
-          Continue to Investigate
+          Continue to Stakeholders
         </Button>
       </div>
     </section>

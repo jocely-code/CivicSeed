@@ -6,9 +6,9 @@ import { ReadinessPanel } from "@/components/ReadinessPanel";
 import { useProject } from "@/hooks/useProject";
 import { usePathname, useRouter } from "next/navigation";
 
-// Valid step names for the project stepper. The investigate URL covers
-// both stakeholders (2) and evidence (3) on one screen.
-const VALID_STEPS = ["define", "investigate", "solutions", "brief"];
+// Valid step names for the project stepper.
+// Steps 2 and 3 are separate URLs: /stakeholders and /evidence.
+const VALID_STEPS = ["define", "stakeholders", "evidence", "solutions", "brief"];
 
 export default function ProjectLayout({
   children,
@@ -26,14 +26,9 @@ export default function ProjectLayout({
   const { project, ready, saveError } = useProject(id);
 
   // Determine which stepper steps are current.
-  // The investigate page covers both stakeholders (2) and evidence (3).
   const currentSteps: string[] = [];
   if (urlStep) {
-    if (urlStep === "investigate") {
-      currentSteps.push("stakeholders", "evidence");
-    } else {
-      currentSteps.push(urlStep);
-    }
+    currentSteps.push(urlStep);
   }
 
   // Redirect to the project's saved step only if the URL step is not a
